@@ -1,0 +1,11 @@
+Mobile_ID,Brand,Model,RAM_GB,Storage_GB,Price,Rating
+M101,Samsung,Galaxy A35,8,128,28999,4.5
+M102,Xiaomi,Redmi Note 14,6,128,18999,4.3
+M103,Apple,iPhone 15,8,128,69999,4.8
+M104,OnePlus,Nord CE 4,8,256,24999,4.6
+M105,Realme,Narzo 80,8,128,17999,4.2
+M106,Vivo,V50,12,256,34999,4.7
+M107,Oppo,Reno 13,8,256,32999,4.4
+M108,Motorola,Edge 60,12,256,37999,4.6
+M109,Nothing,Phone 3a,8,128,27999,4.5
+M110,Google,Pixel 9a,8,128,49999,4.8

@@ -4,162 +4,356 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feature Engineering - Unit I Labs</title>
+
     <style>
         * {
             box-sizing: border-box;
         }
 
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
-            background: #f4f6f8;
-            color: #222;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
         }
 
         .header {
-            background: #17365d;
+            background: linear-gradient(135deg, #173f5f, #20639b);
             color: white;
-            padding: 30px;
-            border-radius: 12px;
+            padding: 42px 20px 36px;
             text-align: center;
-            margin-bottom: 25px;
         }
 
         .header h1 {
             margin: 0 0 10px;
-            font-size: 30px;
+            font-size: 32px;
         }
 
         .header p {
             margin: 0;
             font-size: 17px;
+            opacity: 0.95;
         }
 
-        .labs {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 18px;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             gap: 15px;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
         }
 
-        .lab {
-            display: block;
+        .summary {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .search-box {
+            width: 280px;
+            max-width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
             background: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-decoration: none;
-            color: #17365d;
-            border: 1px solid #ddd;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .lab:hover {
+        .search-box:focus {
+            border-color: #20639b;
+            box-shadow: 0 0 0 3px rgba(32, 99, 155, 0.12);
+        }
+
+        .labs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 18px;
+        }
+
+        .lab-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 22px;
+            box-shadow: 0 3px 10px rgba(15, 23, 42, 0.06);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            min-height: 190px;
+        }
+
+        .lab-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 12px rgba(0,0,0,0.14);
+            box-shadow: 0 8px 22px rgba(15, 23, 42, 0.10);
         }
 
         .lab-number {
+            display: inline-block;
+            align-self: flex-start;
+            background: #e8f1f8;
+            color: #173f5f;
             font-weight: bold;
-            font-size: 18px;
-            margin-bottom: 7px;
+            padding: 6px 11px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-bottom: 14px;
         }
 
-        .lab-topic {
-            color: #555;
-            font-size: 14px;
+        .lab-card h2 {
+            font-size: 19px;
+            margin: 0 0 9px;
+            color: #173f5f;
+            line-height: 1.35;
+        }
+
+        .filename {
+            font-size: 12px;
+            color: #64748b;
+            word-break: break-all;
+            margin-bottom: 18px;
+        }
+
+        .open-btn {
+            margin-top: auto;
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            background: #20639b;
+            color: white;
+            padding: 11px 16px;
+            border-radius: 7px;
+            font-weight: 600;
+            transition: background 0.2s ease;
+        }
+
+        .open-btn:hover {
+            background: #173f5f;
         }
 
         .footer {
             text-align: center;
-            margin-top: 30px;
-            color: #666;
-            font-size: 14px;
+            color: #64748b;
+            font-size: 13px;
+            padding: 32px 15px;
+        }
+
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 35px;
+            color: #64748b;
+            background: white;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 25px;
+            }
+
+            .header p {
+                font-size: 15px;
+            }
+
+            .labs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-box {
+                width: 100%;
+            }
         }
     </style>
 </head>
 
 <body>
-<div class="container">
 
-    <div class="header">
-        <h1>Feature Engineering</h1>
-        <p>BCA III Semester — Unit I Laboratory Programs</p>
-    </div>
+    <header class="header">
+        <h1>Feature Engineering - Unit I</h1>
+        <p>Laboratory Practicals | BCA</p>
+    </header>
 
-    <div class="labs">
+    <main class="container">
 
-        <a class="lab" href="Lab_1_pandas_001.html">
-            <div class="lab-number">Lab 1</div>
-            <div class="lab-topic">Introduction to Pandas</div>
-        </a>
+        <div class="top-bar">
+            <div class="summary">18 Practical Labs</div>
+            <input
+                type="text"
+                id="searchBox"
+                class="search-box"
+                placeholder="Search labs..."
+                onkeyup="searchLabs()"
+            >
+        </div>
 
-        <a class="lab" href="Lab_2_pandas_002.html">
-            <div class="lab-number">Lab 2</div>
-            <div class="lab-topic">Pandas Data Handling</div>
-        </a>
+        <section class="labs-grid" id="labsGrid">
 
-        <a class="lab" href="Lab_3.html">
-            <div class="lab-number">Lab 3</div>
-            <div class="lab-topic">Data Operations</div>
-        </a>
+            <div class="lab-card">
+                <span class="lab-number">LAB 01</span>
+                <h2>Introduction to Pandas - 001</h2>
+                <div class="filename">Lab_1_pandas_001.html</div>
+                <a class="open-btn" href="Lab_1_pandas_001.html">Open Lab</a>
+            </div>
 
-        <a class="lab" href="lab_4.html">
-            <div class="lab-number">Lab 4</div>
-            <div class="lab-topic">Data Cleaning</div>
-        </a>
+            <div class="lab-card">
+                <span class="lab-number">LAB 02</span>
+                <h2>Introduction to Pandas - 002</h2>
+                <div class="filename">Lab_2_pandas_002.html</div>
+                <a class="open-btn" href="Lab_2_pandas_002.html">Open Lab</a>
+            </div>
 
-        <a class="lab" href="Lab_5_isnull.html">
-            <div class="lab-number">Lab 5</div>
-            <div class="lab-topic">Identifying Missing Values</div>
-        </a>
+            <div class="lab-card">
+                <span class="lab-number">LAB 03</span>
+                <h2>Lab 03</h2>
+                <div class="filename">Lab_3.html</div>
+                <a class="open-btn" href="Lab_3.html">Open Lab</a>
+            </div>
 
-        <a class="lab" href="Lab_6_dropna.html">
-            <div class="lab-number">Lab 6</div>
-            <div class="lab-topic">Handling Missing Values with dropna()</div>
-        </a>
+            <div class="lab-card">
+                <span class="lab-number">LAB 04</span>
+                <h2>Lab 04</h2>
+                <div class="filename">lab_4.html</div>
+                <a class="open-btn" href="lab_4.html">Open Lab</a>
+            </div>
 
-        <a class="lab" href="Lab_7_with_mean.html">
-            <div class="lab-number">Lab 7</div>
-            <div class="lab-topic">Missing Value Imputation using Mean</div>
-        </a>
+            <div class="lab-card">
+                <span class="lab-number">LAB 05</span>
+                <h2>Checking Missing Values with isnull()</h2>
+                <div class="filename">Lab_5_isnull.html</div>
+                <a class="open-btn" href="Lab_5_isnull.html">Open Lab</a>
+            </div>
 
-        <a class="lab" href="Lab_8_groupby.html">
-            <div class="lab-number">Lab 8</div>
-            <div class="lab-topic">GroupBy-based Missing Value Handling</div>
-        </a>
+            <div class="lab-card">
+                <span class="lab-number">LAB 06</span>
+                <h2>Handling Missing Values with dropna()</h2>
+                <div class="filename">Lab_6_dropna.html</div>
+                <a class="open-btn" href="Lab_6_dropna.html">Open Lab</a>
+            </div>
 
-        <a class="lab" href="Lab_9_groupby.html">
-            <div class="lab-number">Lab 9</div>
-            <div class="lab-topic">GroupBy and Missing Value Analysis</div>
-        </a>
+            <div class="lab-card">
+                <span class="lab-number">LAB 07</span>
+                <h2>Handling Missing Values with Mean</h2>
+                <div class="filename">Lab_7_with_mean.html</div>
+                <a class="open-btn" href="Lab_7_with_mean.html">Open Lab</a>
+            </div>
 
-        <a class="lab" href="Lab_10_MAR_groupby%20(1).html">
-            <div class="lab-number">Lab 10</div>
-            <div class="lab-topic">MAR Imputation using GroupBy</div>
-        </a>
+            <div class="lab-card">
+                <span class="lab-number">LAB 08</span>
+                <h2>GroupBy in Pandas</h2>
+                <div class="filename">Lab_8_groupby.html</div>
+                <a class="open-btn" href="Lab_8_groupby.html">Open Lab</a>
+            </div>
 
-        <a class="lab" href="Lab_11_MAR_titanic.html">
-            <div class="lab-number">Lab 11</div>
-            <div class="lab-topic">MAR Imputation using Titanic Dataset</div>
-        </a>
+            <div class="lab-card">
+                <span class="lab-number">LAB 09</span>
+                <h2>GroupBy Operations - 002</h2>
+                <div class="filename">Lab_9_groupby.html</div>
+                <a class="open-btn" href="Lab_9_groupby.html">Open Lab</a>
+            </div>
 
-        <a class="lab" href="lab_12.html">
-            <div class="lab-number">Lab 12</div>
-            <div class="lab-topic">Missing Data and MAR — Final Lab</div>
-        </a>
+            <div class="lab-card">
+                <span class="lab-number">LAB 10</span>
+                <h2>MAR and GroupBy</h2>
+                <div class="filename">Lab_10_MAR_groupby.html</div>
+                <a class="open-btn" href="Lab_10_MAR_groupby.html">Open Lab</a>
+            </div>
 
-    </div>
+            <div class="lab-card">
+                <span class="lab-number">LAB 11</span>
+                <h2>MAR Analysis with Titanic Dataset</h2>
+                <div class="filename">Lab_11_MAR_titanic.html</div>
+                <a class="open-btn" href="Lab_11_MAR_titanic.html">Open Lab</a>
+            </div>
 
-    <div class="footer">
-        Complete all 12 laboratory programs and maintain them in your lab file.
-    </div>
+            <div class="lab-card">
+                <span class="lab-number">LAB 12</span>
+                <h2>Lab 12</h2>
+                <div class="filename">lab_12.html</div>
+                <a class="open-btn" href="lab_12.html">Open Lab</a>
+            </div>
 
-</div>
+            <div class="lab-card">
+                <span class="lab-number">LAB 13</span>
+                <h2>Min-Max Scaling</h2>
+                <div class="filename">Lab_13_MinMaxScaling.html</div>
+                <a class="open-btn" href="Lab_13_MinMaxScaling.html">Open Lab</a>
+            </div>
+
+            <div class="lab-card">
+                <span class="lab-number">LAB 14</span>
+                <h2>Z-Score Standardization</h2>
+                <div class="filename">Lab_14_Z-Score_Standardization.html</div>
+                <a class="open-btn" href="Lab_14_Z-Score_Standardization.html">Open Lab</a>
+            </div>
+
+            <div class="lab-card">
+                <span class="lab-number">LAB 15</span>
+                <h2>NumPy - Lab 15</h2>
+                <div class="filename">Lab_15_Numpy.html</div>
+                <a class="open-btn" href="Lab_15_Numpy.html">Open Lab</a>
+            </div>
+
+            <div class="lab-card">
+                <span class="lab-number">LAB 16</span>
+                <h2>NumPy - Lab 16</h2>
+                <div class="filename">Lab_16_Numpy.html</div>
+                <a class="open-btn" href="Lab_16_Numpy.html">Open Lab</a>
+            </div>
+
+            <div class="lab-card">
+                <span class="lab-number">LAB 17</span>
+                <h2>NumPy - Lab 17</h2>
+                <div class="filename">Lab_17_Numpy.html</div>
+                <a class="open-btn" href="Lab_17_Numpy.html">Open Lab</a>
+            </div>
+
+            <div class="lab-card">
+                <span class="lab-number">LAB 18</span>
+                <h2>NumPy - Lab 18</h2>
+                <div class="filename">Lab_18_Numpy.html</div>
+                <a class="open-btn" href="Lab_18_Numpy.html">Open Lab</a>
+            </div>
+
+        </section>
+
+        <div class="no-results" id="noResults">
+            No matching lab found.
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        Feature Engineering | Unit I Laboratory
+    </footer>
+
+    <script>
+        function searchLabs() {
+            const searchText = document.getElementById("searchBox").value.toLowerCase();
+            const cards = document.querySelectorAll(".lab-card");
+            let visibleCount = 0;
+
+            cards.forEach(function(card) {
+                const text = card.innerText.toLowerCase();
+
+                if (text.includes(searchText)) {
+                    card.style.display = "flex";
+                    visibleCount++;
+                } else {
+                    card.style.display = "none";
+                }
+            });
+
+            document.getElementById("noResults").style.display =
+                visibleCount === 0 ? "block" : "none";
+        }
+    </script>
+
 </body>
 </html>
